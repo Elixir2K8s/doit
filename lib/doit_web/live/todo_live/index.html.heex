@@ -1,0 +1,88 @@
+<div class="flex justify-center mb-10">
+  <div class="pr-4 py-2">
+    <h1 class="text-3xl font-bold">Todos</h1> 
+  </div>
+  <div>
+  <div>
+  <!-- handle_events located in form_component -->
+  <.form let={f} for={@changeset} phx-change="validate" phx-submit="save">
+
+    <div class="">
+    <div class="flex justify-center items-center">
+        <div class="relative">
+            <div class="absolute top-4 left-3"></div> <%= text_input f, :title, class: "h-14 w-96 pl-10 pr-20 rounded-lg z-0 focus:shadow focus:outline-none #{if f.errors[:title] do "border-red-500" end}", phx_debounce: "blur", placeholder: "New Todo ..." %>
+            <div class="absolute top-2 right-2"><%= submit "Add Todo", phx_disable_with: "Adding...", class: "h-10 w-40 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"  %> </div>
+        </div>
+    </div>
+    <%= error_tag f, :title %>
+    </div>
+  </.form>
+
+  </div>
+    
+
+  </div>
+
+</div>
+
+<%= if @live_action in [:new, :edit] do %>
+  <.modal return_to={Routes.todo_index_path(@socket, :index)}>
+    <.live_component
+      module={DoitWeb.TodoLive.FormComponent}
+      id={@todo.id || :new}
+      title={@page_title}
+      action={@live_action}
+      todo={@todo}
+      return_to={Routes.todo_index_path(@socket, :index)}
+    />
+  </.modal>
+<% end %>
+
+ <!--
+  preload callback is useful when multiple components of the same type are rendered on the page and you want to preload or augment their data in batches 
+  its mandatory to add an ID to the container as well as to each child:
+ -->
+ 
+ <div id="all-todos" >
+<!--<div id="all-todos">-->
+  <div id="todo-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4" phx-update="prepend">
+    <%= for todo <- @todos do %>
+      <%= live_component @socket, DoitWeb.TodoLive.TodoComponent, id: todo.id, todo: todo %>
+    <% end %>
+  </div>
+</div>
+
+  <div class="pl-4 py-2">
+    <button class="float-right bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"><%= live_patch "New Todo", to: Routes.todo_index_path(@socket, :new) %></button>
+  </div>
+
+
+
+<!--<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Done</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="todose">
+    <%= for todo <- @todos do %>
+      <tr id={"todo-#{todo.id}"}>
+        <td><%= todo.title %></td>
+        <td><%= todo.description %></td>
+        <td><%= todo.done %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.todo_show_path(@socket, :show, todo) %></span>
+          <span><%= live_patch "Edit", to: Routes.todo_index_path(@socket, :edit, todo) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: todo.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>-->
+
+
