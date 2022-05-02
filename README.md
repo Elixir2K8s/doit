@@ -1,4 +1,4 @@
-# Doit
+# Doit - A simple Realtime Todo Elixir Webapp
 
 To start your Phoenix server:
 
