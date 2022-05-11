@@ -27,6 +27,9 @@ services:
     container_name: elixir
     volumes:
       - doitdata:/doit_app_files
+    labels:
+      kompose.service.type: nodeport
+      kompose.service.nodeport.port: "30080"
     #volumes:
     #  - .:/app
     #environment:
