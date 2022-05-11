@@ -18,6 +18,7 @@ services:
       - 'pgdata:/var/lib/postgresql/data'
 
   elixir:
+    image: localhost:5000/elixir
     build: .
     ports:
      - "4000:4000"
@@ -25,7 +26,7 @@ services:
       - .env
     container_name: elixir
     volumes:
-      - .:/doit_app_files
+      - doitdata:/doit_app_files
     #volumes:
     #  - .:/app
     #environment:
@@ -45,3 +46,4 @@ services:
 
 volumes:
   pgdata:
+  doitdata:
