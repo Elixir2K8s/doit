@@ -18,9 +18,10 @@ defmodule DoitWeb.Router do
   end
 
   scope "/", DoitWeb do
-    pipe_through :browser
+    pipe_through [:browser, :require_authenticated_user]
 
-    get "/", PageController, :index
+    #get "/", PageController, :index
+    live "/", TodoLive.Index, :index
 
     live "/todos", TodoLive.Index, :index
     live "/todos/new", TodoLive.Index, :new

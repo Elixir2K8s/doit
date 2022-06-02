@@ -1,10 +1,16 @@
-<ul>
-<%= if @current_user do %>
-  <li><%= @current_user.email %></li>
-  <li><%= link "Settings", to: Routes.user_settings_path(@conn, :edit) %></li>
-  <li><%= link "Log out", to: Routes.user_session_path(@conn, :delete), method: :delete %></li>
-<% else %>
-  <li><%= link "Register", to: Routes.user_registration_path(@conn, :new) %></li>
-  <li><%= link "Log in", to: Routes.user_session_path(@conn, :new) %></li>
-<% end %>
-</ul>
+<div class="flex justify-center">
+  <%= if @current_user do %>
+    <div class="flex-auto w-64 flex justify-start"><%= @current_user.email %></div>
+    <div class="flex-auto w-64 flex justify-end">
+      <ul>
+        <li><%= button("Log out", to: Routes.user_session_path(@conn, :delete), method: :delete, class: "bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-1 px-3 border border-red-500 hover:border-transparent rounded") %></li>
+        <li><%= link "Settings", to: Routes.user_settings_path(@conn, :edit) %></li>
+        
+      </ul>
+     </div>
+  <% else %>
+    <!--
+    <div class="flex-auto w-64"><%= button("Register",  to: Routes.user_registration_path(@conn, :new),  method: :get) %></div>
+    <div class="flex-auto w-64 flex justify-end"><%= button("Log in",  to: Routes.user_session_path(@conn, :new),  method: :get) %></div>-->
+  <% end %>
+</div>

@@ -5,7 +5,7 @@ defmodule DoitWeb.TodoLive.Index do
   alias Doit.Todos.Todo
 
   @impl true
-  def mount(_params, _session, socket) do
+  def mount(_params, session, socket) do
     if connected?(socket), do: Todos.subscribe()
 
     #initialy %Todo{} = todo
@@ -13,8 +13,9 @@ defmodule DoitWeb.TodoLive.Index do
 
     {:ok,
      socket
-     |> assign(:todos, list_todos())
-     |> assign(:changeset, changeset),
+     |> assign(:todos, list_todos(session))
+     |> assign(:changeset, changeset)
+     |> assign(:session, session),
      temporary_assigns: [todos: []]}
 
     #{:ok, assign(socket, :todos, list_todos()), temporary_assigns: [todos: []]}
@@ -97,7 +98,7 @@ defmodule DoitWeb.TodoLive.Index do
   end
 
   def handle_event("save", %{"todo" => todo_params}, socket) do
-    case Todos.create_todo(todo_params) do
+    case Todos.create_todo(todo_params, socket.assigns.session) do
       {:ok, _todo} ->
         #reassign an empty change set to clear the input
         changeset = Todos.change_todo(%Todo{})
@@ -159,7 +160,7 @@ defmodule DoitWeb.TodoLive.Index do
     {:noreply, update(socket, :todos, fn todos -> [todo | todos] end)}
   end
 
-  defp list_todos do
-    Todos.list_todos()
+  defp list_todos(session) do
+    Todos.list_todos(session)
   end
 end

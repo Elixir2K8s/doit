@@ -12,7 +12,7 @@ defmodule DoitWeb.TodoLive.TodoComponent do
                         <%= @todo.title %>
                     </div>
                     <div class="flex-none">
-                        <%= checkbox(:todo, :done, phx_click: "toggle_done", phx_value_id: @todo.id, value: @todo.done, class: "px-4 py-4 rounded-full checked:bg-green-600") %>
+                        <%= checkbox(:todo, :done, phx_click: "toggle_done", phx_value_id: @todo.id, value: @todo.done, class: "px-4 py-4 rounded-full checked:bg-green-600", id: "checkbox-#{@todo.id}") %>
                     </div>
                 </div>
 

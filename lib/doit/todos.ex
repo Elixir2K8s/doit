@@ -7,6 +7,7 @@ defmodule Doit.Todos do
   alias Doit.Repo
 
   alias Doit.Todos.Todo
+  alias Doit.Accounts
 
   @doc """
   Returns the list of todos.
@@ -17,15 +18,30 @@ defmodule Doit.Todos do
       [%Todo{}, ...]
 
   """
-  def list_todos(_params \\ %{}) do
+
+  def list_todos(%{"user_token" => user_token}) do
+    #IO.puts("-----------------")
+    user = user_token && Accounts.get_user_by_session_token(user_token)
+    #IO.inspect(user)
     #Repo.all(Todo)
-    Repo.all(from t in Todo, order_by: [desc: t.importance])
+    Repo.all(from t in user_todos(user), order_by: [desc: t.importance])
+  end
+
+  #def list_todos(_params\\ %{}) do
+    #Repo.all(Todo)
+  #  Repo.all(from t in Todo, order_by: [desc: t.importance])
     #list by Todo importance
     #from(
     #  t in Todo,
     #  order_by: ^filter_order_by(params["order_by"])
     #  )
     #|> Repo.all(from t in Todo, order_by: [desc: t.importance])
+  #end
+
+
+  defp user_todos(user) do
+    #assoc Builds a query for the association in the given struct or structs.
+    Ecto.assoc(user, :todos)
   end
 
   defp filter_order_by("importance_desc"), do: [desc: :importance]
@@ -82,8 +98,11 @@ defmodule Doit.Todos do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_todo(attrs \\ %{}) do
-    %Todo{}
+  def create_todo(attrs , %{"user_token" => user_token}) do
+    user = user_token && Accounts.get_user_by_session_token(user_token)
+    #build a new assoc to connect the new todo with the user
+    #%Todo{}
+    Ecto.build_assoc(user, :todos)
     |> Todo.changeset(attrs)
     |> Repo.insert()
     |> broadcast(:todo_created)

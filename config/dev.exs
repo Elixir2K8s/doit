@@ -2,7 +2,11 @@ import Config
 
 # Configure your database
 config :doit, Doit.Repo,
-  url: System.get_env("DATABASE_URL"),
+  username: "postgres",
+  password: "postgres",
+  hostname: "localhost",
+  database: "doit_dev",
+  #url: System.get_env("DATABASE_URL"),
   #username: System.get_env("PGUSER"),
   #password: System.get_env("PGPASSWORD"),
   #database: System.get_env("PGDATABASE"),
