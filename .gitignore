@@ -35,3 +35,5 @@ npm-debug.log
 #ignore the .env file with the Secrets they have to be placed on the server/local manualy
 .env
 
+Hinweise.txt
+

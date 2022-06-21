@@ -8,6 +8,9 @@ defmodule DoitWeb.TodoLive.Index do
   def mount(_params, session, socket) do
     if connected?(socket), do: Todos.subscribe()
 
+    self_node = inspect(node())
+    nodes = inspect Node.list()
+
     #initialy %Todo{} = todo
     changeset = Todos.change_todo(%Todo{})
 
@@ -15,6 +18,8 @@ defmodule DoitWeb.TodoLive.Index do
      socket
      |> assign(:todos, list_todos(session))
      |> assign(:changeset, changeset)
+     |> assign(:node, self_node)
+     |> assign(:nodes, nodes)
      |> assign(:session, session),
      temporary_assigns: [todos: []]}
 

@@ -14,6 +14,16 @@ config :doit, DoitWeb.Endpoint, cache_static_manifest: "priv/static/cache_manife
 # Do not print debug messages in production
 config :logger, level: :info
 
+config :libcluster, topologies: [
+  k8s_doit: [
+    strategy: Cluster.Strategy.Kubernetes.DNS,
+    config: [
+      service: "elixir-headless",
+      application_name: "elixir"
+    ]
+  ]
+]
+
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key
