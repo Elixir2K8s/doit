@@ -9,12 +9,7 @@ defmodule Doit.Application do
   def start(_type, _args) do
 
     #Cluster.Strategy.Epmd -> works with DNS or IP maybe better?
-    topologies = Application.get_env(:libcluster, :topologies) || [
-      doit: [
-        strategy: Cluster.Strategy.Gossip,
-        #config: [hosts: [:"a@127.0.0.1", :"b@127.0.0.1"]],
-      ]
-    ]
+    topologies = Application.get_env(:libcluster, :topologies)
 
 
 

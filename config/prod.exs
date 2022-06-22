@@ -19,7 +19,8 @@ config :libcluster, topologies: [
     strategy: Cluster.Strategy.Kubernetes.DNS,
     config: [
       service: "elixir-headless",
-      application_name: "elixir"
+      application_name: "doit"
+      # -> node name now becomes doit@pod_ip
     ]
   ]
 ]
