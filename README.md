@@ -39,4 +39,7 @@ if you want to jump inside the elixir debian-buster distro run
 Detail information can be found in the Dockerfile as well as in the docker-compose.yml.
 Environment variables for the docker environment can be set in the .env file
 
+## start instances on different nodes for libcluster
+`PORT=4000 iex --sname a -S mix phx.server`
+`PORT=4001 iex --sname b -S mix phx.server`
 
