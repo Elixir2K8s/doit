@@ -5,7 +5,7 @@ defmodule DoitWeb.TodoLive.TodoComponent do
     def render(assigns) do
         #{if @todo.__meta__.state == :deleted do hidden end}
         ~H"""
-        <div id={"todo-#{@todo.id}"} class={"todo max-w-sm rounded overflow-hidden shadow-lg #{if @todo.__meta__.state == :deleted do "hidden" end}"} >
+        <div id={"todo-#{@todo.id}"} class={"todo max-w-sm rounded overflow-hidden bg-white shadow-lg #{if @todo.__meta__.state == :deleted do "hidden" end}"} >
             <div class="px-6 py-4">
                 <div class="flex flex-wrap">
                     <div class="font-bold text-xl mb-2 flex-1">

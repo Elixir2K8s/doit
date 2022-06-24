@@ -1,6 +1,9 @@
 <div class="flex justify-center">
   <%= if @current_user do %>
     <div class="flex-auto w-64 flex justify-start"><%= @current_user.email %></div>
+    <div class="pr-4 py-2">
+      <h1 class="text-3xl font-bold">Todos</h1> 
+    </div>
     <div class="flex-auto w-64 flex justify-end">
       <ul>
         <li><%= button("Log out", to: Routes.user_session_path(@conn, :delete), method: :delete, class: "bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-1 px-3 border border-red-500 hover:border-transparent rounded") %></li>

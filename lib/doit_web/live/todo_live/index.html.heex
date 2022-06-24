@@ -5,11 +5,8 @@
   </div>
 </div>
 
-<div class="flex justify-center mb-10">
-  <div class="pr-4 py-2">
-    <h1 class="text-3xl font-bold">Todos</h1> 
-  </div>
-  <div>
+<div class="flex flex-col justify-center mb-10">
+
   <div>
   <!-- handle_events located in form_component -->
   <.form let={f} for={@changeset} phx-change="validate" phx-submit="save">
@@ -24,10 +21,6 @@
     <%= error_tag f, :title %>
     </div>
   </.form>
-
-  </div>
-    
-
   </div>
 
 </div>
