@@ -1,26 +1,41 @@
-<h1>Register</h1>
+<div class="flex justify-center">
+<div class="w-full max-w-xs">
 
-<.form let={f} for={@changeset} action={Routes.user_registration_path(@conn, :create)}>
+
+<.form let={f} for={@changeset} action={Routes.user_registration_path(@conn, :create)} class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+<div class="flex flex-col">
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
       <p>Oops, something went wrong! Please check the errors below.</p>
     </div>
   <% end %>
 
-  <%= label f, :email %>
-  <%= email_input f, :email, required: true %>
-  <%= error_tag f, :email %>
+  <div><h1>Register</h1></div>
 
-  <%= label f, :password %>
-  <%= password_input f, :password, required: true %>
+  <div class="mb-4">
+  <%= label f, :email, class: "block text-gray-700 text-sm font-bold mb-2" %>
+  <%= email_input f, :email, required: true, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+  <%= error_tag f, :email %>
+  </div>
+
+  <div class="mb-6">
+  <%= label f, :password, class: "block text-gray-700 text-sm font-bold mb-2" %>
+  <%= password_input f, :password, required: true, class: "shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" %>
   <%= error_tag f, :password %>
+  </div>
 
   <div>
-    <%= submit "Register" %>
+    <%= submit "Register", class: "w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
   </div>
+
+    <div>
+      <p>
+        <%= link "Log in", to: Routes.user_session_path(@conn, :new) %> |
+        <%= link "Forgot your password?", to: Routes.user_reset_password_path(@conn, :new) %>
+      </p>
+  </div>
+</div>
 </.form>
 
-<p>
-  <%= link "Log in", to: Routes.user_session_path(@conn, :new) %> |
-  <%= link "Forgot your password?", to: Routes.user_reset_password_path(@conn, :new) %>
-</p>
+    </div>
+</div>

@@ -2,7 +2,8 @@
   <%= if @current_user do %>
     <div class="flex-auto w-64 flex justify-start"><%= @current_user.email %></div>
     <div class="pr-4 py-2">
-      <h1 class="text-3xl font-bold">Todos</h1> 
+      <%= link "Todos", to: Routes.todo_index_path(@conn, :index) , class: "text-3xl font-bold" %>
+      <!--<h1 class="text-3xl font-bold">Todos</h1>-->
     </div>
     <div class="flex-auto w-64 flex justify-end">
       <ul>
